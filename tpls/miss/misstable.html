@@ -1,0 +1,289 @@
+<style>
+.c1{
+  width:70px;
+  margin:0;
+}
+.c2{
+  width:110px;
+}
+</style>
+<div class="row" id="show_view" style="margin:0;" ng-controller="showtableCtrl">
+
+  <div class="col-lg-12 fix_box" >
+    <div class="panel panel-primary fix_panel">
+      <div class="panel-heading">
+        <div class=" p_title">
+        <ul class="nav nav-pills" role="tablist">
+          <li>填写日期：&nbsp;</li>
+          <li>
+            <input placeholder="开始日期" class="laydate-icon form-control input-sm" onclick="laydate()" id="s_date">
+          </li>
+          <li>&nbsp; - &nbsp;</li>
+          <li>
+            <input placeholder="结束日期" class="laydate-icon form-control input-sm" onclick="laydate()" id="e_date">
+          </li>
+          <li>
+            <div class="btn-group pull-left ml10" uib-dropdown is-open="status.isopen">
+              <button id="single-button" type="button" style="padding-top:5px;padding-bottom: 5px;" class="btn btn-warning" uib-dropdown-toggle ng-disabled="disabled">
+                <span class="drop_val">{{click_name}}</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem">
+                  <a href ng-click="click_me('0','筛选字段')">无</a>
+                  <a href ng-click="click_me('luozha','落扎/注文情报')">落扎/注文情报</a>
+                  <a href ng-click="click_me('make_name','填写人')">填写人</a>
+                  <a href ng-click="click_me('receive_name','收件人')">收件人</a>
+                  <a href ng-click="click_me('miss_who','miss 方')">miss 方</a>
+                  <a href ng-click="click_me('miss_type','miss 类型')">miss 类型</a>
+                  <a href ng-click="click_me('miss_solution','处理结果')">处理结果</a>
+                  <a href ng-click="click_me('miss_send','发送方式')">发送方式</a>
+                  <a href ng-click="click_me('miss_back','已返品')">已返品</a>
+                  <a href ng-click="click_me('miss_ems','再送单号')">再送单号</a>
+                  <a href ng-click="click_me('back_ems','返品单号')">返品单号</a>
+                </li>
+              </ul>
+            </div>
+            <div class="pull-left ml10 am-flip-x" ng-show="search_txt_status">
+              <input  type="text" 
+                        class="form-control input-sm"
+                        placeholder="筛选关键词"
+                        ng-model="search_key_words"
+                        >         
+            </div>
+          </li>
+          <li>
+            <input type="button" class="btn btn-info btn-sm ml10" ng-click="get_count();to_page('1')" value="查询">
+          </li>
+          <li>
+            <input type="button" class="btn btn-default btn-sm ml10" ng-click="down_table('miss_table')" value="下载">
+          </li>
+<!--           <li>
+            <input type="button" class="btn btn-warning btn-sm ml10" ng-click="count_table('miss_table')" value="统计">
+          </li> -->
+        </ul>
+        </div>
+<!--         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 pull-right">
+          <input  type="text" 
+                      class="form-control input-sm"
+                      placeholder="筛选"
+                      ng-model="key_words"
+                      ></div>
+        <div class="clearfix"></div> -->
+      </div>
+      <div class="panel-body">
+        <table class="table fix_table table-condensed table-hover f12">
+          <thead>
+            <tr class="blue">
+              <td>ID</td>
+              <td>填写日期</td>
+              <td>填写人</td>
+              <td>MISS 日期</td>
+              <!-- <td>账号</td> -->
+              <td>落扎/注文情报</td>
+              <td>收件人</td>
+              <td>详情</td>
+              <td>MISS 方</td>
+              <td>处理结果</td>
+              <!-- <td>MISS 类型</td>
+              <td>MISS 详情</td> -->
+              <td>发送方式</td> 
+              <td>MISS 数</td>
+              <td>已返品</td>
+              <td>再送单号</td>
+              <td>再送运费</td>
+              <td>返品单号</td>
+              <td>返品运费</td>
+              <td>返品手续费</td>
+              <!-- <td>漏/误发产品代码</td> -->
+              <td>成本损失</td>
+              <!-- <td>合计损失</td> -->
+<!--               <td>汇率</td>
+              <td>人民币合计</td> -->
+            </tr>
+          </thead>
+          <tr ng-repeat="item in show_table | filter:key_words track by $index" on-finish-render-filters id="line_{{item.id}}">
+            <td>{{item.id}}</td>
+            <td class="blue">{{item.make_date}}</td>
+            <td>{{item.make_name}}</td>
+            <td class="red">{{item.miss_date}}</td>
+            <!-- <td>{{item.account}}</td> -->
+            <td>{{item.luozha}}</td>
+            <td>{{item.receive_name}}</td>
+            <td>
+              <div data-animation="am-fade-and-slide-top" data-template-url="/modal/look_info.html" bs-modal="modal" ng-click="look_info('miss_table',item.id)" class="btn btn-primary btn-xs">详情</div>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('MISS 详情','miss_info',item.id,item.miss_info)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.miss_who | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_option_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('MISS 方','miss_who',item.id,item.miss_who);find_option('miss_who')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td class="red">
+              <span>{{item.miss_solution | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_option_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('处理结果','miss_solution',item.id,item.miss_solution);find_option('miss_solution')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.miss_send | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_option_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('MISS 对应发送方式','miss_send',item.id,item.miss_send);find_option('miss_send')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.miss_num | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_num.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('MISS 数','miss_num',item.id,item.miss_num);find_option('miss_num')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <!-- <td>{{item.miss_type}}</td>
+            <td>{{item.miss_info}}</td>
+            <td>{{item.miss_send}}</td> -->
+            <td>
+              <span>{{item.miss_back | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_option_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('已返品','miss_back',item.id,item.miss_back);find_option('miss_back')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.miss_ems | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('再送单号','miss_ems',item.id,item.miss_ems)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.miss_money | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('再送运费','miss_money',item.id,item.miss_money)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.back_ems | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('返品单号','back_ems',item.id,item.back_ems)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.back_money | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('返品运费','back_money',item.id,item.back_money)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.back_hand_money | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('返品手续费','back_hand_money',item.id,item.back_hand_money)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <td>
+              <span>{{item.cost_lost | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_option_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('成本损失','cost_lost',item.id,item.cost_lost);find_option('cost_lost')" 
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td>
+            <!-- <td>
+              <span>{{item.all_lost | field_filter}}</span>
+              <i  data-animation="am-fade-and-slide-top" 
+                  data-template-url="/modal/change_info.html" 
+                  bs-modal="modal" 
+                  ng-click="change_field('合计损失','all_lost',item.id,item.all_lost)"
+                  class="icon-edit pointer gray"
+                  ng-show="item.make_name==u_name"></i>
+            </td> -->
+            <!-- <td>
+              <input  readonly
+                  class="form-control c1 input-sm pull-left mr10"
+                  id="jp_rate_{{item.id}}"
+                  value="{{item.jp_rate | field_filter}}"
+                  ng-dblclick="change_field('jp_rate',item.id)"
+                  >
+            </td>
+            <td>
+              <input  readonly
+                  class="form-control c1 input-sm pull-left mr10"
+                  id="all_RMB_{{item.id}}"
+                  value="{{item.all_RMB | field_filter}}"
+                  ng-dblclick="change_field('all_RMB',item.id)"
+                  >
+            </td> -->
+            <td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/del_info.html" bs-modal="modal" ng-click="del_info(item.id)" class="btn btn-danger btn-xs">删除</div></td>
+          </tr>
+        </table>
+      </div>
+<!--       <div class="panel-footer">
+        可添加、删除筛选，对字段进行批处理操作。
+      <div class="ycmbcd"></div></div> -->
+    </div><!-- /pannel -->
+  </div><!-- /col -->
+  <nav>
+    <ul class="pagination">
+      <li class="pointer" ng-class="{disabled:pre_overflow}">
+        <a class="pg_s" ng-click="Previous()">
+          <span>&nbsp;上一页</span>
+        </a>
+      </li>
+      <li class="pointer" ng-repeat="page in pageList track by $index" ng-class="{active: isActivePage(page)}" >
+        <a ng-click="selectPage(page)" >{{ page }}</a>
+      </li>
+      <li class="pointer" ng-class="{disabled:next_overflow}">
+        <a ng-click="Next()">
+          <span>下一页</span>
+        </a>
+      </li>
+      <li class="disabled">
+        <a>每页 <input class="page_size tagr" type="number" min="1" ng-model='change_size' ng-value="pageSize" ng-change="change_pageSize()"> 条</a>
+      </li>
+      <li>
+        <a>
+          <select ng-model="selectOption" style="margin:-3px 1px -2px 1px;" ng-change="clickOption()" ng-options="c as c for c in pageOption">
+             <option value="">跳转</option>
+          </select>
+        </a>
+      </li>
+      <li class="disabled">
+        <a class="pg_e">Page {{selPage}} / {{pages}}</a><a>共 {{all_num}} 条</a>
+      </li>
+    </ul>
+  </nav>
+  
+</div>

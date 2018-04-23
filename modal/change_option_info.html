@@ -1,0 +1,21 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h5 class="modal-title blue" ng-bind-html="title">ID{{change_info_id}}：<span class="yellow">{{change_info_field_name}}</span></h5>
+      </div>
+      <div class="modal-body tagc">
+        <h4>{{change_info_o_key}}</h4>
+        <select class="form-control" ng-model="change_info_new_key">
+          <option value="" selected="selected">请选择..</option>
+          <option ng-repeat="item in field_option_info">{{item.field_name}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-disabled="!change_info_new_key" class="btn btn-primary" ng-click="change_item(change_info_new_key);$hide()">确定</button>
+        <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>

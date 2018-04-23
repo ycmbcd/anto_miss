@@ -1,0 +1,262 @@
+<div class="row" style="margin:0" ng-controller="addmissCtrl">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading tagr">填写日期：{{date_today}} / 填写人：{{u_name}}</div>
+			<div class="panel-body">
+				<div class="container-fluid mt20">
+					<div class="hidden">{{sku_id}}</div><!--suk_id调试用，新建成功后返回id-->
+
+					<form name="new_form">
+						<table ng-hide="miss_over" style="margin-left: 30px;" class="table-condensed" ng-mouseleave="remove_option()">
+							<thead>
+								<div class="label label-primary label_title">新增 MISS</div>
+							</thead>
+							<tbody class="ml20">	
+								<tr>
+									<td class="tagr f12 blue">MISS 日期:</td>
+									<td width="300">
+						                <input lay-date type="text" 
+											required="required" 
+											readonly="readonly"
+						                	id="date_1" placeholder="请输入日期" class="laydate-icon form-control input-sm" ng-model="missdate">
+									</td>
+									<td><div class="btn btn-primary btn-xs">仅供占位</div></td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">账号:</td>
+									<td width="300">
+										<input 	type="text" 
+												class="form-control input-sm"
+												ng-model="account"	
+												readonly="readonly"
+												required="required" 
+												ng-click="find_option('account')"	
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('账号','account')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_account">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('account',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+									
+								</tr>	
+								<tr>
+									<td class="tagr f12 blue">落扎/注文情报:</td>
+									<td width="300">
+										<input 	type="text" 
+											required="required"
+												class="form-control input-sm"	
+												ng-model="luozha"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">收件人:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="receive_name"				
+						                      	>
+									</td>
+								</tr>	
+								<tr>
+									<td class="tagr f12 blue">MISS 方:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"
+												readonly="readonly" 
+												ng-model="miss_who"
+												ng-click="find_option('miss_who')"			
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('MISS 方','miss_who')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_who">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_who',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">MISS 数:</td>
+									<td width="300">
+										<input 	type="text" 
+											required="required"
+												class="form-control input-sm"	
+												ng-model="miss_num"	
+												readonly="readonly" 
+												ng-click="find_option('miss_num')"			
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('MISS 数','miss_num')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_num">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_num',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">MISS 类型:</td>
+									<td width="300">
+										<input 	type="text"
+												required="required" 
+												class="form-control input-sm"	
+												ng-model="miss_type"
+												readonly="readonly" 
+												ng-click="find_option('miss_type')"				
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('MISS 类型','miss_type')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_type">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_type',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">MISS 详情:</td>
+									<td width="300">
+										<textarea rows="5" style="resize: none;" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="miss_info"></textarea> 					
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">处理结果:</td>
+									<td width="300">
+										<input 	type="text" 
+												class="form-control input-sm"	
+												ng-model="miss_solution"
+												required="required"
+												readonly="readonly" 
+												ng-click="find_option('miss_solution')"				
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('处理结果','miss_solution')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_solution">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_solution',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">MISS 对应发送方式:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="miss_send"	
+												readonly="readonly" 
+												ng-click="find_option('miss_send')"				
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('MISS 对应发送方式','miss_send')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_send">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_send',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">已返品:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="miss_back"
+												readonly="readonly" 
+												ng-click="find_option('miss_back')"					
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('已返品','miss_back')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_miss_back">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('miss_back',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">再送单号:</td>
+									<td width="300">
+										<input 	type="text" 
+												
+												class="form-control input-sm"	
+												ng-model="miss_ems"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">再送运费:</td>
+									<td width="300">
+										<input 	type="number" 
+												
+												class="form-control input-sm"	
+												ng-model="miss_money"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">返品单号:</td>
+									<td width="300">
+										<input 	type="text" 
+												
+												class="form-control input-sm"	
+												ng-model="back_ems"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">返品运费:</td>
+									<td width="300">
+										<input 	type="number"
+												
+												class="form-control input-sm"	
+												ng-model="back_money"	
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">返品手续费:</td>
+									<td width="300">
+										<input 	type="number"
+												
+												class="form-control input-sm"	
+												ng-model="back_hand_money"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">漏/误发产品代码:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="back_sku"				
+						                      	>
+									</td>
+								</tr>
+								<tr>
+									<td class="tagr f12 blue">成本损失:</td>
+									<td width="300">
+										<input 	type="text" 
+												required="required"
+												class="form-control input-sm"	
+												ng-model="cost_lost"
+												readonly="readonly" 
+												ng-click="find_option('cost_lost')"					
+						                      	>
+									</td>
+									<td><div ng-show="is_admin" data-animation="am-fade-and-slide-top" data-template-url="/modal/miss_choose.html" bs-modal="modal" ng-click="miss_choose('成本损失','cost_lost')" class="btn btn-primary btn-xs">选项管理</div></td>
+									<td class="fuzhi hidden" id="fz_cost_lost">
+										<input  ng-repeat="oop in field_option track by $index" class="btn btn-sm mr10 ml10 btn-primary" type="button" ng-click="fuzhi('cost_lost',oop.field_name);" value="{{oop.field_name}}" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<div class="mt20"></div>
+					<button ng-hide="miss_over" ng-disabled="new_form.$invalid" type="button" class="btn btn-success btn-sm btn-next ml20 mt40" ng-click="submit_miss()"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 录</button>
+						
+					<div class="row mt20">
+						<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+					<button  ng-show="miss_over" type="button" style="width:100%" class="btn btn-success ml20 mt10" ng-click="next_add()"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp; 再 新 建 一 条</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				填入数据，点击【记录】完成，点击【选项管理】管理该选项的备选项。
+			<div class="ycmbcd"></div></div>
+		</div><!-- /pannel -->
+	</div><!-- /col -->
+</div>

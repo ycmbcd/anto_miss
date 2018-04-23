@@ -1,0 +1,9 @@
+<div ng-controller="plugCtrl">
+	<div ng-controller="siteCtrl">
+		<div ui-view="topbar"></div>
+		<div ui-view="show" class="container-show mt70 am-fade-and-slide-top"><h1 style="padding-left:30px">欢迎使用 ANTO - MISS MANAGEMENT SYSTEM</h1></div>
+	</div>
+	<!-- alert消息弹框 -->
+	<div uib-alert ng-repeat="alert in alerts" dismiss-on-timeout='2000' ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"><div id="alert_icon" class="{{alerts.icon}}"></div>{{alert.msg}}</div>
+
+</div>

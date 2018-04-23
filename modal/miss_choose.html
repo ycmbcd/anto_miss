@@ -1,0 +1,62 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title red" ng-bind-html="title">{{miss_choose_title}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="m10">
+          <div class="row">
+            <form name="newmissForm">
+              <div class="col-lg-6 col-md-10 col-sm-12">
+                <div class="input-group">
+                  <input  type="text" 
+                  class="form-control" 
+                  placeholder="选项名" 
+                  name="new_miss_choose" 
+                  ng-model="new_miss_choose"
+                  required   
+                              maxlength="50" 
+                              ng-maxlength="50"
+                              uib-popover="必填、长度小于50个字符"
+                              popover-trigger="'mouseenter'"
+                              popover-placement="top-left">        
+                  <span class="input-group-btn">
+                    <button ng-disabled="newmissForm.new_miss_choose.$invalid" class="btn btn-success" type="button" ng-click="add_miss_choose(new_miss_choose)">添加</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div  class="mt20">
+            <table class="table table-condensed table-bordered table-striped table-hover tagc">
+              <tr>
+                <td>序号</td>
+                <td>选项名</td>
+                <td>操作</td>
+              </tr>
+              <tr ng-repeat="item in miss_choose_items track by $index">
+                <td class="field_{{item.id}}">{{$index+1}}</td>
+                <td class="field_{{item.id}}">{{item.field_name}}</td>
+                <td class="field_{{item.id}}">
+                  <button uib-popover-template="del_popover.templateUrl"
+                    popover-title="{{del_popover.title}}" 
+                    popover-trigger="'outsideClick'" 
+                    popover-placement="right"
+                    type="button"
+                    class="btn btn-danger btn-xs"
+                    ng-click="del_miss_choose(item.id)">删 除</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>

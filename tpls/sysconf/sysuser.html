@@ -1,0 +1,45 @@
+<div class="row" style="margin:0">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary" ng-controller="userCtrl">
+			<div class="panel-heading">账号管理</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-6">
+							<form name="new_userForm">
+								<div class="input-group">
+									<input placeholder="新增员工" required name="new_user" ng-model="new_user" class="form-control" type="text" />	
+									<span class="input-group-btn">
+										<button ng-disabled="new_userForm.new_user.$invalid" class="btn btn-success" type="button" ng-click="add_user()">添加</button>
+									</span>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row mt20">
+						<table class="table table-condensed table-bordered table-striped table-hover tagc">
+			              <tr class="danger red">
+			                <td>工 号</td>
+			                <td>员工姓名</td>
+			                <td>操 作</td>
+			              </tr>
+			              <tr ng-repeat="item in all_users track by $index">
+			                <td class="red">{{item.u_num}}</td>
+			                <td>{{item.u_name}}</td>
+			                <td>
+			                  	<div data-animation="am-fade-and-slide-top" data-template-url="/modal/del_user_info.html" bs-modal="modal" ng-click="del_user_info(item.u_num)" class="btn btn-danger btn-xs">删除</div>
+			                </td>
+			              </tr>
+			            </table>
+			            <table>
+			            	
+			            </table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+			员工进行操作。
+			</div>
+		</div><!-- /pannel -->
+	</div><!-- /col -->
+</div>
