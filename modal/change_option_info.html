@@ -8,13 +8,13 @@
       <div class="modal-body tagc">
         <h4>{{change_info_o_key}}</h4>
         <select class="form-control" ng-model="change_info_new_key">
-          <option value="" selected="selected">请选择..</option>
+          <option value="" selected="selected">select..</option>
           <option ng-repeat="item in field_option_info">{{item.field_name}}</option>
         </select>
       </div>
       <div class="modal-footer">
-        <button type="button" ng-disabled="!change_info_new_key" class="btn btn-primary" ng-click="change_item(change_info_new_key);$hide()">确定</button>
-        <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+        <button type="button" ng-disabled="!change_info_new_key" class="btn btn-primary" ng-click="change_item(change_info_new_key);$hide()">ok</button>
+        <button type="button" class="btn btn-default" ng-click="$hide()">close</button>
       </div>
     </div>
   </div>

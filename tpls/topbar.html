@@ -2,19 +2,24 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar_top" role="navigation">
 	<div id="top_bar">
 		<ul class="top_btn pull-left">
-			<li class="pull-left ml10" ui-sref="site.addmiss" ng-class="{nv_active:is_click1}" ng-click="nav_click('1')">新建MISS</li>
-			<li class="pull-left ml10" ui-sref="site.misstable" ng-class="{nv_active:is_click2}" ng-click="nav_click('2')">MISS表</li>
-			<li class="pull-left ml10" ui-sref="site.syspwd" ng-class="{nv_active:is_click3}" ng-click="nav_click('3')">密码修改</li>
+			<li class="pull-left ml10" ui-sref="site.addmiss" ng-class="{nv_active:is_click1}" ng-click="nav_click('1')">{{jp_lang==1 ? '追加 MISS' : '新建 MISS'}}</li>
+			<li class="pull-left ml10" ui-sref="site.misstable" ng-class="{nv_active:is_click2}" ng-click="nav_click('2')">{{jp_lang==1 ? 'MISS 表' : 'MISS 表'}}</li>
+			<li class="pull-left ml10" ui-sref="site.syspwd" ng-class="{nv_active:is_click3}" ng-click="nav_click('3')">{{jp_lang==1 ? '暗証番号の変更
+					' : '密码修改'}}</li>
 			<li ng-show="is_admin" class="pull-left ml10" ui-sref="site.sysuser" ng-class="{nv_active:is_click4}" ng-click="nav_click('4')">账号管理</li>
 		</ul>
 		<ol class="breadcrumb bdr_no pull-right" style="margin-top: 6px;">
+			<li>
+				<label style="cursor: pointer;color: #ddd;"><input name="miss_lang" ng-change="cg_lang('0')" type="radio" value="0" ng-model="jp_lang" /> 简体中文 </label>&nbsp;&nbsp;
+				<label style="cursor: pointer;color: #ddd;"><input name="miss_lang" ng-change="cg_lang('1')" type="radio" value="1" ng-model="jp_lang" /> 日本語 </label>
+			</li>
 			<li class="green_light ng-binding gray"> <i class="icon-user"></i>
 				{{u_name}}
 			</li>
 			<li>
 				<a class="red_light" href="/fuck/login.php?logout">
 					<span class="icon-signout"></span>
-					退出
+					{{jp_lang==1 ? 'ログアウト' : '退出'}}
 				</a>
 			</li>
 		</ol>

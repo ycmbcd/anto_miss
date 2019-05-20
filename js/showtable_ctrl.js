@@ -1,4 +1,5 @@
 app.controller('showtableCtrl', ['$scope','$rootScope','$state','$stateParams','$http','$log','$modal',function($scope,$rootScope,$state,$stateParams,$http,$log,$modal){
+
     //查询哪个表
     $scope.tb_name = $stateParams.tb_name;
     $scope.pageSize = '10';   //每页10条

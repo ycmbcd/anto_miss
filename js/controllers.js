@@ -4,12 +4,22 @@ app.controller('loginCtrl', ['$rootScope','$scope','$state','$http',function ($r
     $rootScope.bg = true;   //设置背景
     $scope.focus_me = true;
 
+    $rootScope.jp_lang = 0;
+    $scope.cg_lang = function(){
+        if($scope.jp_lang == 0){
+            $scope.jp_lang = 0;
+        }else{
+            $scope.jp_lang = 1;
+        }
+    }
+
     $scope.save = function(){
-        var post_data = {u_num:$scope.u_num,u_pwd:$scope.u_pwd};
+        var post_data = {u_num:$scope.u_num,u_pwd:$scope.u_pwd,u_lang:$scope.jp_lang};
         if($scope.loginForm.$valid){
             $http.post('/fuck/login.php', post_data).success(function(data) {  
                 console.log(data)
                 if(data=='go'){
+                    $rootScope.jp_lang = $scope.jp_lang;
                     $state.go('site');  //跳转到main
                 }else{
                     alert('用户名或密码不正确'); //%
@@ -91,7 +101,9 @@ app.controller('userCtrl', ['$scope','$state','$http',function ($scope,$state,$h
 
 //面板控制器
 app.controller('siteCtrl', ['$rootScope','$scope','$state','$http', function($rootScope,$scope,$state,$http){
+    
     $rootScope.bg = false;
+
     //查询u_name
     $http.get('/fuck/login.php', {params:{u_name:"get"}
     }).success(function(data) {

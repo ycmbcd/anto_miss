@@ -1,20 +1,28 @@
 var app = angular.module('myApp');
-app.controller('plugCtrl', ['$scope','$uibModal','$log', function($scope,$uibModal,$log){
+app.controller('plugCtrl', ['$scope','$uibModal','$log','$http', function($scope,$uibModal,$log,$http){
     $scope.ok = "ok";
+
+    $scope.get_lang = function(){
+        $http.get('/fuck/login.php', {params:{get_lang:'get'}
+        }).success(function(data) {
+            $scope.jp_lang = data;
+        }).error(function(data) {
+            alert("系统错误，请联系管理员。");
+        });
+    }
+    $scope.get_lang();
+
+    $scope.cg_lang = function(e){
+        $http.get('/fuck/login.php', {params:{cg_lang:e}
+        }).success(function(data) {
+           $scope.get_lang();
+        }).error(function(data) {
+            alert("系统错误，请联系管理员。");
+        });
+    }
 
     //手风琴
     $scope.oneAtATime = true;
-
-    // $scope.groups = [
-    // {
-    //   title: 'Dynamic Group Header - 1',
-    //   content: 'Dynamic Group Body - 1'
-    // },
-    // {
-    //   title: 'Dynamic Group Header - 2',
-    //   content: 'Dynamic Group Body - 2'
-    // }
-    // ];
 
     $scope.items = ['Item 1', 'Item 2', 'Item 3'];
 
@@ -155,7 +163,7 @@ app.controller('plugCtrl', ['$scope','$uibModal','$log', function($scope,$uibMod
 
     //下拉
     $scope.plug_dropdown=function(){
-        $scope.click_name="筛选字段";
+
         $scope.click_key="0";
 
         $scope.isdisabled=true; //默认操作按钮不可见

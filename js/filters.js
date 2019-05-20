@@ -36,3 +36,23 @@ myFilters.filter('shop_filter', function(){
         return res;
     }
 });
+
+myFilters.filter('cg_lang', function(){
+    return function(item){
+		switch (item)
+		{
+		case '工号':
+		  	res = "gonghao";
+		  break;
+		case 'amazon':
+		  	res = "亚马逊";
+		  break;
+		case 'rakuten':
+		  	res = "乐天";
+		 	break;
+		default:
+		 	res = item;
+		}
+        return res;
+    }
+});

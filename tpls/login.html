@@ -1,14 +1,19 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="loginCtrl">
   <div class="row">
     <nav class="navbar bdr_no gray bg_opacity">
-      <div id="header_txt">
+      <div id="header_txt" style="float:left;">
         <span class="glyphicon glyphicon-screenshot"></span>
-        ANTO - MISS表
+        ANTO - MISS MANAGEMENT SYSTEM
       </div>
+      <div style="float:right;margin-top:14px;margin-right:20px;color:#FFF;font-size: 12px;">
+        <label style="cursor: pointer;"><input name="miss_lang" ng-change="cg_lang()" type="radio" value="0" ng-checked="true" ng-model="jp_lang" /> 简体中文 </label>&nbsp;&nbsp;
+        <label style="cursor: pointer;"><input name="miss_lang" ng-change="cg_lang()" type="radio" value="1" ng-model="jp_lang" /> 日本語 </label>
+      </div>
+      <div style="clear:both;"></div>
     </nav>
   </div>
 
-  <div class="row" ng-controller="loginCtrl">
+  <div class="row" >
     <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
       <form name="loginForm">
         <div class="panel bg_opacity panel-default auto" id="login_box">
@@ -18,7 +23,7 @@
                 <span class="glyphicon glyphicon-user"></span>
               </span>
               <input  type="text"
-                      placeholder="工号" 
+                      placeholder="{{jp_lang ? '担当 ID' : '工号'}}"
                       ng-model="u_num" 
                       name="u_num" 
                       required   
@@ -34,7 +39,7 @@
                 <span class="glyphicon glyphicon-lock"></span>
               </span>
               <input  type="password" 
-                      placeholder="密码"
+                      placeholder="{{jp_lang ? 'パスワード' : '密码'}}"
                       ng-model="u_pwd"
                       name="u_pwd" 
                       ng-enter="save()"
@@ -42,7 +47,7 @@
                       ng-class="{'error':loginForm.u_pwd.$invalid && loginForm.u_pwd.$touched}"
                       class="form-control login_input"></div>
           </div>
-          <div id="login_btn" class="btn mt10 btn-danger" ng-click="save()" >登&nbsp;&nbsp;&nbsp;录</div>
+          <div id="login_btn" class="btn mt10 btn-danger" ng-click="save()" >{{jp_lang ? 'ログイン' : '登&nbsp;&nbsp;&nbsp;录'}}</div>
         </div>
       </form>
     </div>

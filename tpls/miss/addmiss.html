@@ -1,7 +1,7 @@
 <div class="row" style="margin:0" ng-controller="addmissCtrl">
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="panel panel-primary">
-			<div class="panel-heading tagr">填写日期：{{date_today}} / 填写人：{{u_name}}</div>
+			<div class="panel-heading tagr">{{jp_lang==1 ? '入力の日付け：' : '填写日期：'}}{{date_today}} / {{jp_lang==1 ? '担当者：' : '填写人：'}}{{u_name}}</div>
 			<div class="panel-body">
 				<div class="container-fluid mt20">
 					<div class="hidden">{{sku_id}}</div><!--suk_id调试用，新建成功后返回id-->
@@ -9,27 +9,27 @@
 					<form name="new_form">
 						<table ng-hide="miss_over" style="margin-left: 30px;" class="table-condensed" ng-mouseleave="remove_option()">
 							<thead>
-								<div class="label label-primary label_title">新增 MISS</div>
+								<div class="label label-primary label_title">{{jp_lang==1 ? '追加 MISS' : '新增 MISS'}}</div>
 							</thead>
 							<tbody class="ml20">	
 								<tr>
-									<td class="tagr f12 blue">MISS 日期:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? 'MISS発生日:' : 'MISS 日期:'}}</td>
 									<td width="300">
 						                <input lay-date type="text" 
 											required="required" 
 											readonly="readonly"
-						                	id="date_1" placeholder="请输入日期" class="laydate-icon form-control input-sm" ng-model="missdate">
+						                	id="date_1" placeholder="{{jp_lang==1 ? '日付入力' : '请输入日期'}}" class="laydate-icon form-control input-sm" ng-model="missdate">
 									</td>
-									<td><div class="btn btn-primary btn-xs">仅供占位</div></td>
+									<td><div class="btn btn-primary btn-xs">{{jp_lang==1 ? '管理人用' : '仅供占位'}}</div></td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">账号:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '店舗:' : '账号:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												class="form-control input-sm"
-												ng-model="account"	
+												ng-model="account"
 												readonly="readonly"
-												required="required" 
+												required="required"
 												ng-click="find_option('account')"	
 						                      	>
 									</td>
@@ -40,7 +40,7 @@
 									
 								</tr>	
 								<tr>
-									<td class="tagr f12 blue">落扎/注文情报:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '注文番号:' : '落扎/注文情报:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 											required="required"
@@ -50,7 +50,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">收件人:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? 'お届け先:' : '收件人:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												required="required"
@@ -79,7 +79,7 @@
 								<tr>
 									<td class="tagr f12 blue">MISS 数:</td>
 									<td width="300">
-										<input 	type="number" 
+										<input 	type="text" 
 											required="required"
 												class="form-control input-sm"	
 												ng-model="miss_num"	
@@ -92,7 +92,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">MISS 类型:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? 'MISS 種類:' : 'MISS 类型:'}}</td>
 									<td width="300">
 										<input 	type="text"
 												required="required" 
@@ -108,7 +108,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">MISS 详情:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? 'MISS 詳細:' : 'MISS 详情:'}}</td>
 									<td width="300">
 										<textarea rows="5" style="resize: none;" 
 												required="required"
@@ -117,7 +117,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">处理结果:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '处理方法:' : '处理结果:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												class="form-control input-sm"	
@@ -133,7 +133,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">MISS 对应发送方式:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? 'MISSに対する再送する方法:' : 'MISS 对应发送方式:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												required="required"
@@ -149,7 +149,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">已返品:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '返品済み:' : '已返品:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												required="required"
@@ -165,7 +165,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">再送单号:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '再送問い合わせ番号:' : '再送单号:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												
@@ -175,7 +175,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">再送运费:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '再送料:' : '再送运费:'}}</td>
 									<td width="300">
 										<input 	type="number" 
 												
@@ -185,7 +185,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">返品单号:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '返品の問い合わせ番号:' : '返品单号:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												
@@ -195,7 +195,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">返品运费:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '返品送料:' : '返品运费:'}}</td>
 									<td width="300">
 										<input 	type="number"
 												
@@ -205,7 +205,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">返品手续费:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '返品手数料:' : '返品手续费:'}}</td>
 									<td width="300">
 										<input 	type="number"
 												
@@ -215,7 +215,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">漏/误发产品代码:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '誤送/漏れた商品のSKU:' : '漏/误发产品代码:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												required="required"
@@ -225,7 +225,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="tagr f12 blue">成本损失:</td>
+									<td class="tagr f12 blue">{{jp_lang==1 ? '商品損失:' : '成本损失:'}}</td>
 									<td width="300">
 										<input 	type="text" 
 												required="required"
@@ -244,18 +244,20 @@
 						</table>
 					</form>
 					<div class="mt20"></div>
-					<button ng-hide="miss_over" ng-disabled="new_form.$invalid" type="button" class="btn btn-success btn-sm btn-next ml20 mt40" ng-click="submit_miss()"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 录</button>
+					<button ng-hide="miss_over" ng-disabled="new_form.$invalid" type="button" class="btn btn-success btn-sm btn-next ml20 mt40" ng-click="submit_miss()"><i class="glyphicon glyphicon-pencil"></i>
+						&nbsp;&nbsp;保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 存</button>
 						
 					<div class="row mt20">
 						<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-					<button  ng-show="miss_over" type="button" style="width:100%" class="btn btn-success ml20 mt10" ng-click="next_add()"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp; 再 新 建 一 条</button>
+					<button  ng-show="miss_over" type="button" style="width:100%" class="btn btn-success ml20 mt10" ng-click="next_add()"><i class="glyphicon glyphicon-plus"></i>
+						{{jp_lang==1 ? '&nbsp;&nbsp; データ一つ追加する' : '&nbsp;&nbsp; 再 新 建 一 条'}}
+					</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel-footer">
-				填入数据，点击【记录】完成，点击【选项管理】管理该选项的备选项。
-			<div class="ycmbcd"></div></div>
+
+			<div class="ycmbcd"></div>
 		</div><!-- /pannel -->
 	</div><!-- /col -->
 </div>

@@ -1,25 +1,22 @@
 <div class="row" style="margin:0">
-	<div class="col-lg-2 col-lg-offset-5">
+	<div class="col-lg-3 col-lg-offset-5">
 		<div class="panel panel-primary" ng-controller="repwdCtrl">
-			<div class="panel-heading">密码修改</div>
+			<div class="panel-heading">暗証番号の変更</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 					<div class="row">
-						<input type="password" class="form-control" ng-model="old_pwd" placeholder="旧密码" >
+						<input type="password" class="form-control" ng-model="old_pwd" placeholder="{{jp_lang==1 ? '旧パスワード' : '旧密码'}}" >
 					</div>
 					<div class="row mt10">
-						<input type="password" class="form-control" ng-model="new_pwd" placeholder="新的密码" >
+						<input type="password" class="form-control" ng-model="new_pwd" placeholder="{{jp_lang==1 ? '新パスワード' : '新的密码'}}" >
 					</div>
 					<div class="row mt10">
-						<input type="password" class="form-control" ng-model="re_pwd" placeholder="确认密码" >
+						<input type="password" class="form-control" ng-model="re_pwd" placeholder="{{jp_lang==1 ? '新パスワードを再度入力して' : '确认密码'}}" >
 					</div>
 					<div class="row mt10">
-						<button class="btn btn-danger btn-sm" style="width:100%" type="button" ng-click="cg_pwd()">&nbsp;&nbsp;&nbsp;修&nbsp;&nbsp;&nbsp; 改&nbsp;&nbsp;&nbsp;</button>
+						<button class="btn btn-danger btn-sm" style="width:100%" type="button" ng-click="cg_pwd()">&nbsp;&nbsp;&nbsp;修&nbsp;&nbsp;&nbsp; 正&nbsp;&nbsp;&nbsp;</button>
 					</div>
 				</div>
-			</div>
-			<div class="panel-footer">
-			对密码进行修改
 			</div>
 		</div><!-- /pannel -->
 	</div><!-- /col -->

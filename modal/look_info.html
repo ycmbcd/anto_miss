@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header" ng-show="title">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
-        <h4 class="modal-title blue f14" ng-bind-html="title">填写日期：{{look_item.make_date}} / 填写人: {{look_item.make_name}}</h4>
+        <h4 class="modal-title blue f14" ng-bind-html="title">{{jp_lang==1 ? '入力の日付け：' : '填写日期：'}}{{look_item.make_date}} / {{jp_lang==1 ? '担当者：' : '填写人：'}} {{look_item.make_name}}</h4>
       </div>
       <div class="modal-body">
         <div class="m10">
@@ -14,46 +14,46 @@
                 <td class="danger red">{{look_item.miss_who}}</td>
                 <td class="warning">MISS 数</td>
                 <td class="warning red">{{look_item.miss_num}}</td>
-                <td class="success">MISS 类型</td>
+                <td class="success">{{jp_lang==1 ? 'MISS 種類' : 'MISS 类型'}}</td>
                 <td class="success red">{{look_item.miss_type}}</td>
               </tr>
             </table>
             <table class="f12 table table-condensed table-bordered table-hover tagc">
               <tr>
-                <td class="info blue" width="30%">落扎/注文情报</td>
+                <td class="info blue" width="30%">{{jp_lang==1 ? '注文番号' : '落扎/注文情报'}}</td>
                 <td>{{look_item.luozha}}</td>
               </tr>
               <tr>
-                <td class="info blue">收件人</td>
+                <td class="info blue">{{jp_lang==1 ? 'お届け先' : '收件人'}}</td>
                 <td>{{look_item.receive_name}}</td>
               </tr>
               <tr>
-                <td class="info blue">账号</td>
+                <td class="info blue">{{jp_lang==1 ? '店舗' : '账号'}}</td>
                 <td>{{look_item.account}}</td>
               </tr>
               <tr>
-                <td class="info blue">MISS 对应发送方式</td>
+                <td class="info blue">{{jp_lang==1 ? 'MISSに対する再送する方法' : 'MISS 对应发送方式'}}</td>
                 <td>{{look_item.miss_send}}</td>
               </tr>
               <tr>
-                <td class="info blue">漏/误发产品代码</td>
+                <td class="info blue">{{jp_lang==1 ? '誤送/漏れた商品のSKU' : '漏/误发产品代码'}}</td>
                 <td>{{look_item.back_sku}} <i class="icon-edit pointer gray" ng-click="show_forget=!show_forget;new_forget_goods_code=''"></i>
                     <div class="clearfix"></div>
                     <div ng-show="show_forget" class="btn-group" style="margin-top: 8px;">
                           <button type="button" class="btn btn-default btn-sm">
                             <input type="text" style="height: 22px;width:190px;" ng-model="new_forget_goods_code">
                           </button>
-                          <button class="btn btn-primary" ng-click="change_forget(item.id,new_forget_goods_code);show_forget=!show_forget" ng-disabled="new_forget_goods_code==''">修改</button>
+                          <button class="btn btn-primary" ng-click="change_forget(item.id,new_forget_goods_code);show_forget=!show_forget" ng-disabled="new_forget_goods_code==''">{{jp_lang==1 ? '修正' : '修改'}}</button>
                     </div>
                 </td>
               </tr>
               <tr>
-                <td class="success blue">处理结果</td>
+                <td class="success blue">{{jp_lang==1 ? '处理方法' : '处理结果'}}</td>
                 <td class="success blue">{{look_item.miss_solution}}</td>
               </tr>
             </table>
             <div class="panel panel-danger">
-              <div class="panel-heading" style="height: 30px;line-height: 30px;padding:0 0 0 10px;">MISS 详情</div>
+              <div class="panel-heading" style="height: 30px;line-height: 30px;padding:0 0 0 10px;">{{jp_lang==1 ? 'MISS 詳細' : 'MISS 详情'}}</div>
               <div class="panel-body">
                 {{look_item.miss_info}}
               </div>
@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+        <button type="button" class="btn btn-default" ng-click="$hide()">close</button>
       </div>
     </div>
   </div>

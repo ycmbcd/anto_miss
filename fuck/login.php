@@ -6,10 +6,28 @@ $dir = dirname(__FILE__);
 require_once($dir."/../pdo/PdoMySQL.class.php");//PDO
 $db = new PdoMySQL();
 
+// 获取语言
+if(isset($_GET['get_lang'])){
+	$u_num = $_SESSION['miss_u_num'];
+	$sql = "SELECT u_lang FROM user_company WHERE u_num='{$u_num}'";
+	$res = $db->getOne($sql);
+	echo $res['u_lang'];
+}
+
+// 更新语言
+if(isset($_GET['cg_lang'])){
+	$u_num = $_SESSION['miss_u_num'];
+	$cg_lang = $_GET['cg_lang'];
+	$sql = "UPDATE user_company SET u_lang = '{$cg_lang}' WHERE u_num='{$u_num}'";
+	$res = $db->execute($sql);
+	echo 'ok';
+}
+
 //登录验证
 if(isset($_POST['u_num'])){
 	$u_num = $_POST['u_num'];
 	$u_pwd = $_POST['u_pwd'];
+	$u_lang = $_POST['u_lang'];
 	$u_num = addslashes($u_num);   //防止SQL注入
 	$u_pwd = addslashes($u_pwd);   
 	$sql = "SELECT * FROM user_company WHERE u_num='{$u_num}' AND u_pwd='{$u_pwd}'";
@@ -20,6 +38,8 @@ if(isset($_POST['u_num'])){
     }else{
 		$_SESSION['miss_u_num'] = $u_num;
 		$_SESSION['miss_u_name'] = $res['u_name'];
+		$sql = "UPDATE user_company SET u_lang = '{$u_lang}' WHERE u_num = '{$u_num}'";
+		$res = $db->execute($sql);
     	echo "go";
     }
 }
